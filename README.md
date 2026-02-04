@@ -11,7 +11,7 @@ Make sure the following tools are installed before setup:
 - VS Code 
 - XAMPP / WAMP (for Windows users)
 ---
-## 🛠 Setup Development Environment
+## Setup Development Environment
 
 Follow these steps to run the project locally.
 
