@@ -2,14 +2,17 @@
 
 return [
 
+    /**
+     * 1. Define application paths exposed to cross-origin routing requests.
+     */
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'http://localhost:5173',
-        'http://127.0.0.1:5173',
-    ],
+    /**
+     * 2. Configure trusted origins authorized to execute cross-site HTTP requests.
+     */
+    'allowed_origins' => ['http://localhost:5173', 'http://localhost:5174'], 
 
     'allowed_origins_patterns' => [],
 
@@ -19,6 +22,8 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
-
+    /**
+     * 3. Enable credential transmission to securely share Sanctum cookies and session headers.
+     */
+    'supports_credentials' => true, 
 ];

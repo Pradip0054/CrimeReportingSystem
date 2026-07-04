@@ -14,7 +14,9 @@
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Banner Styling */
+/**
+ * 1. Establish the linear-gradient banner header utilizing an absolute container overlap layout.
+ */
 .search-banner {
     background: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%);
     padding: 70px 40px;
@@ -22,7 +24,7 @@
     text-align: center;
     color: white;
     box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
-    margin-bottom: -50px; /* Overlap effect */
+    margin-bottom: -50px; 
     position: relative;
     z-index: 1;
 }
@@ -43,7 +45,6 @@
     opacity: 0.9;
 }
 
-/* Card Styling */
 .search-card-wrapper {
     background: white;
     padding: 80px 50px 40px;
@@ -62,6 +63,9 @@
 
 .blue-icon { color: #2563eb; }
 
+/**
+ * 2. Enforce structural form input rules alongside rigid color contrast properties.
+ */
 .search-card input {
     width: 100%;
     padding: 20px 24px;
@@ -69,18 +73,27 @@
     border-radius: 14px;
     font-size: 1.2rem;
     background: #f8fafc;
+    color: #0f172a !important; 
     transition: 0.3s;
     outline: none;
     box-sizing: border-box;
     margin-bottom: 25px;
 }
 
+.search-card input::placeholder {
+    color: #94a3b8;
+}
+
 .search-card input:focus {
     border-color: #2563eb;
     background: white;
+    color: #0f172a !important; 
     box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
 }
 
+/**
+ * 3. Define standardized button layout properties, hover transitions, and tracking keyframe matrices.
+ */
 .search-submit-btn {
     width: 100%;
     background-color: #2563eb;

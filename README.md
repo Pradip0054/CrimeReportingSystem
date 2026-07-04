@@ -58,7 +58,7 @@ npm install
 ```
 ### Configure API URL: Ensure the baseURL in your src/axios.js matches your backend local server:
 ```bash
-baseURL: 'http://127.0.0.1:8000/'
+baseURL: 'http://localhost:8000/'
 ```
 ### Run Development Server:
 ```bash

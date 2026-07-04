@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "../api";
 import { useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, Mail, Smartphone, User, 
@@ -38,7 +38,7 @@ const Login = () => {
         setSuccessMsg(""); 
         
         try {
-            await axios.post('http://127.0.0.1:8000/api/send-otp', { email: formData.email });
+            await axios.post('/send-otp', { email: formData.email });
             setTimer(60);
             setSuccessMsg("OTP sent successfully!"); 
             if (!isResend) {
@@ -55,7 +55,7 @@ const Login = () => {
         if (formData.otp.length < 4) return alert("Please enter the full code");
         setLoading(true);
         try {
-            const res = await axios.post('http://127.0.0.1:8000/api/verify-otp', formData);
+            const res = await axios.post('/verify-otp', formData);
             const { token, user } = res.data;
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));

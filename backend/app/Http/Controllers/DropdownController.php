@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class DropdownController extends Controller
 {
     /**
-     * Get Static Police Unit Types.
+     * 1. Retrieve the structural classification types for administrative police units.
      */
     public function unitTypes()
     {
@@ -16,7 +16,7 @@ class DropdownController extends Controller
     }
 
     /**
-     * Get Units filtered by Type (Commissionerate/District).
+     * 2. Filter and retrieve underlying police units belonging to a specific classification type.
      */
     public function unitsByType($type)
     {
@@ -30,7 +30,7 @@ class DropdownController extends Controller
     }
 
     /**
-     * Get Police Stations belonging to a specific Unit.
+     * 3. Fetch jurisdictions/stations bound strictly to a target parent police unit.
      */
     public function policeStations($unitId)
     {
@@ -43,9 +43,6 @@ class DropdownController extends Controller
         return response()->json($stations);
     }
 
-    /**
-     * Get all available Complaint Categories.
-     */
     public function complaintTypes()
     {
         $types = DB::table('complaint_types')
@@ -54,5 +51,36 @@ class DropdownController extends Controller
             ->get();
             
         return response()->json($types);
+    }
+
+    /**
+     * 4. Compile a standardized dataset of all stations formatted for frontend consumption.
+     */
+    public function getAllStationsForAdmin()
+    {
+        try {
+            $stations = DB::table('police_stations')
+                ->select('id', 'station_name')
+                ->orderBy('station_name', 'asc')
+                ->get();
+
+            $formattedStations = $stations->map(function($item) {
+                return [
+                    'id'   => $item->id,
+                    'name' => $item->station_name
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data'    => $formattedStations
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to stream dataset: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

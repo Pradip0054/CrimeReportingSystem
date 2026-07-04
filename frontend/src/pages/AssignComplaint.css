@@ -1,0 +1,33 @@
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  width: fit-content;
+  text-transform: capitalize;
+}
+
+.status-pill.pending {
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+}
+
+.status-pill.assigned {
+  background: rgba(46, 213, 115, 0.1);
+  color: #2ed573;
+}
+
+.assigned-text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #2ed573;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.text-green {
+  color: #2ed573;
+}

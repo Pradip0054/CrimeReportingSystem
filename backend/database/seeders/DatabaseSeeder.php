@@ -8,38 +8,39 @@ use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Seed lookup tables first to satisfy foreign key constraints
         $this->call([
             PoliceUnitSeeder::class,
             PoliceStationSeeder::class,
             ComplaintTypeSeeder::class,
         ]);
 
-        // Create or Update Police Account
-        User::updateOrCreate(
-            ['email' => 'mishrapradip@gmail.com'],
-            [
-                'name'     => 'Officer Pradip',
-                'mobile'   => '9847521661',
-                'role'     => 'police',
-                'password' => Hash::make('password123'), // Securely hash password
-            ]
-        );
+        // ডিফল্ট অ্যাডমিন ইউজার তৈরি
+        User::create([
+            'name' => 'Pradip Mishra',
+            'email' => 'mcamishra785@gmail.com',
+            'mobile' => '+916295386571',
+            'role' => 'admin',
+        ]);
 
-        // Create or Update Admin Account
-        User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
-            [
-                'name'     => 'System Admin',
-                'mobile'   => '0181234567',
-                'role'     => 'admin',
-                'password' => Hash::make('admin123'),
-            ]
-        );
+        // 🎯 লোকেশন ফিল্টারিং টেস্ট করার জন্য সঠিক থানার আন্ডারে পুলিশ অফিসার তৈরি
+        User::create([
+            'name' => 'Officer Pradip (Chinsurah)',
+            'email' => 'mishrapradip@gmail.com',
+            'mobile' => '9847521661',
+            'password' => Hash::make('password123'),
+            'role' => 'police',
+            'police_station_id' => 1, // 👈 ১ নম্বর থানা (Chinsurah/Hooghly Rural)
+        ]);
+
+        User::create([
+            'name' => 'Officer Dip (Sabang)',
+            'email' => 'pradiplaptop785@gmail.com',
+            'mobile' => '05423698756',
+            'password' => Hash::make('password123'),
+            'role' => 'police',
+            'police_station_id' => 246, // 👈 ২৪৬ নম্বর থানা (Sabang PS)
+        ]);
     }
 }

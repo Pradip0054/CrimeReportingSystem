@@ -29,7 +29,7 @@ function TrackComplaint() {
     const fetchComplaint = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/complaint/${id}`,
+          `http://localhost:8000/api/complaint/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ function TrackComplaint() {
   if (loading) return <div className="loader">Loading Case File...</div>;
   if (!complaint) return null;
 
-  // 🔥 Dynamic Progress Logic
+  // Dynamic Progress Logic
   const getStatusStep = (status) => {
     const s = status?.toLowerCase() || "";
     if (s.includes("resolved")) return 4;

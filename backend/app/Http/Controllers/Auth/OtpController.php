@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Otp;
@@ -12,34 +10,27 @@ use Carbon\Carbon;
 
 class OtpController extends Controller
 {
-    // Send OTP to user's email
-    public function sendOtp(Request $request)
-    {
-        // Validate email
-        $request->validate([
-            'email' => 'required|email'
-        ]);
+public function sendOtp(Request $request)
+{
+    $request->validate(['email' => 'required|email']);
 
-        // Generate OTP
-        $otp = rand(100000, 999999);
+    $otp = rand(100000, 999999);
 
-        // Store OTP with 5 minutes expiry
-        Otp::updateOrCreate(
-            ['email' => $request->email],
-            [
-                'otp' => $otp,
-                'expires_at' => Carbon::now()->addMinutes(5)
-            ]
-        );
+    // This part tests the Database
+    \App\Models\Otp::updateOrCreate(
+        ['email' => $request->email],
+        ['otp' => $otp, 'expires_at' => \Carbon\Carbon::now()->addMinutes(5)]
+    );
 
-        // Send OTP via email
-        Mail::to($request->email)->queue(new OtpMail($otp));
+    // --- COMMENT THIS OUT FOR TESTING ---
+    \Illuminate\Support\Facades\Mail::to($request->email)->queue(new \App\Mail\OtpMail($otp));
 
-        return response()->json([
-            'success' => true,
-            'message' => 'OTP sent successfully.'
-        ]);
-    }
+    return response()->json([
+        'success' => true,
+        'otp' => $otp, // Temporarily send the OTP in the response so you can see it
+        'message' => 'OTP generated successfully (Email Bypassed).'
+    ]);
+}
 
     // Verify OTP and authenticate user
     public function verifyOtp(Request $request)
@@ -77,7 +68,6 @@ class OtpController extends Controller
                 'role'   => $existingUser ? $existingUser->role : 'citizen',
             ]
         );
-        
         $user->tokens()->delete();
 
         // Generate API token

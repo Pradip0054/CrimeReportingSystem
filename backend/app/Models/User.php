@@ -23,6 +23,7 @@ class User extends Authenticatable
         'mobile',
         'role',
         'password',
+        'police_station_id',
     ];
 
     /**

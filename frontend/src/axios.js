@@ -3,7 +3,7 @@ import axios from 'axios';
 // Create a custom Axios instance
 const instance = axios.create({
     // The base URL for your Laravel backend API
-    baseURL: 'http://127.0.0.1:8000/api', 
+    baseURL: 'http://localhost:8000/api', 
 });
 
 /**
